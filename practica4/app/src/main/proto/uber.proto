@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package uber;
+
+service Uber {
+
+  rpc solicitarViaje (Posicion) returns (infoAuto) {}
+
+  rpc terminarViaje (TerminarViajeRequest) returns (Vacio) {}
+
+  rpc estadoServicio (Vacio) returns (infoServicio) {}
+}
+
+message Vacio{}
+
+message TerminarViajeRequest {
+  Posicion posicion = 1;
+  double costo = 2;
+  string placa = 3;
+}
+
+message Posicion {
+  float X = 1;
+  float Y = 2;
+}
+
+message infoAuto {
+  bool disponibilidad = 1;
+  Posicion posXY = 2;
+  tipoUber tipo = 3;
+  string placa = 4;
+}
+
+message infoServicio {
+  int32 viajes = 1;
+  int32 autosLibres = 2;
+  float ganancia = 3;
+}
+
+enum tipoUber {
+  UBER_PLANET = 0;
+  UBER_XL = 1;
+  UBER_BLACK = 2;
+}
